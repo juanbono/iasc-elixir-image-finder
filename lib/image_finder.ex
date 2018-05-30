@@ -6,6 +6,6 @@ defmodule ImageFinder do
   end
 
   def fetch(source_file, target_directory) do
-    ImageFinder.DynSup.spawn_and_process(source_file, target_directory)
+    ImageFinder.DynSup.process(source_file, target_directory)
   end
 end
