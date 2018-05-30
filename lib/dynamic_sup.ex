@@ -5,17 +5,24 @@ defmodule ImageFinder.DynSup do
     DynamicSupervisor.init([])
   end
 
-  def spawn_and_process(files, target_directory) do
-    children =
-      files
-      |> Enum.map(fn _ ->
-        DynamicSupervisor.start_child(__MODULE__, ImageFinder.Worker)
-      end)
-      |> Enum.map(fn {_, pid} -> pid end)
+  def process(files, target_dir) do
+    children = start_workers(files)
 
     Enum.zip(children, files)
-    |> Enum.map(fn {child, file} ->
-      ImageFinder.Worker.fetch(child, file, target_directory)
-    end)
+    |> Enum.map(fn {child, file} -> send_fetch(child, file, target_dir) end)
+  end
+
+  defp send_fetch(child, file, target_dir) do
+    ImageFinder.Worker.fetch(child, file, target_dir)
+  end
+
+  defp start_workers(files) do
+    files
+    |> Enum.map(fn _ -> start_worker() end)
+    |> Enum.map(fn {_, pid} -> pid end)
+  end
+
+  defp start_worker() do
+    DynamicSupervisor.start_child(__MODULE__, ImageFinder.Worker)
   end
 end
