@@ -10,7 +10,7 @@ defmodule ImageFinder.Worker do
     {:ok, %{}}
   end
 
-  def handle_call({:fetch, source_file, target_directory}, _from, state) do
+  def handle_cast({:fetch, source_file, target_directory}, _state) do
     content = File.read!(source_file)
     regexp = ~r/http(s?)\:.*?\.(png|jpg|gif)/
 
@@ -18,11 +18,11 @@ defmodule ImageFinder.Worker do
     |> Enum.map(&List.first/1)
     |> Enum.map(&fetch_link(&1, target_directory))
 
-    {:reply, :ok, state}
+    {:noreply, :ok}
   end
 
   def fetch(pid, source_file, target_directory) do
-    GenServer.call(pid, {:fetch, source_file, target_directory})
+    GenServer.cast(pid, {:fetch, source_file, target_directory})
   end
 
   def fetch_link(link, target_directory) do
