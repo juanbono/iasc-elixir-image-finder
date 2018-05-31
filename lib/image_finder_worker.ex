@@ -1,9 +1,8 @@
 defmodule ImageFinder.Worker do
   use GenServer
 
-  def start_link(args) do
-    IO.inspect(args)
-    GenServer.start_link(__MODULE__, :ok)
+  def start_link(_args) do
+    GenServer.start_link(__MODULE__, :ok, debug: [:trace])
   end
 
   def init(_args) do

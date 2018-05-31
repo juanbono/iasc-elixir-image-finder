@@ -5,7 +5,7 @@ defmodule ImageFinder do
     ImageFinder.Supervisor.start_link()
   end
 
-  def fetch(source_file, target_directory) do
-    ImageFinder.DynSup.process(source_file, target_directory)
+  def fetch(files, target_directory) do
+    ImageFinder.DynSup.process(files, target_directory)
   end
 end

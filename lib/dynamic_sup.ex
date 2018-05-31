@@ -10,6 +10,8 @@ defmodule ImageFinder.DynSup do
 
     Enum.zip(children, files)
     |> Enum.map(fn {child, file} -> send_fetch(child, file, target_dir) end)
+
+    :ok
   end
 
   defp send_fetch(child, file, target_dir) do
