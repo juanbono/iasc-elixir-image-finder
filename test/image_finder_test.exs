@@ -1,9 +1,13 @@
 defmodule ImageFinderTest do
   use ExUnit.Case
 
-  test "greets the world" do
-    files = ["./test/sample.txt", "./test/sample2.txt"]
-    target = "./test/target/"
+  @test_file1 "./test/sample.txt"
+  @test_file2 "./test/sample2.txt"
+  @target_directory "./test/target/"
+
+  test "ImageFinder.fetch works fine" do
+    files = [@test_file1, @test_file2]
+    target = @target_directory
     ImageFinder.fetch(files, target)
     # we need to look for a better way to test this
     :timer.sleep(3000)
