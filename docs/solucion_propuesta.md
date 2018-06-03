@@ -1,3 +1,8 @@
+## Solución Propuesta:
+
+#### Jerarquia de Supervisión
+![jerarquia de supervision](https://raw.githubusercontent.com/juanbono/iasc-elixir-image-finder/master/docs/diagrama_jerarquia.png)
+
 ### Pasos:
 
 1.  Cuando el usuario ejecuta la función `ImageFinder.fetch/2` pasandole una lista de archivos y una carpeta destino, estos son pasados al `ImageFinder.Supervisor` que los redirige al `ImageFinder.FileParser.Supervisor` para su proceso.
