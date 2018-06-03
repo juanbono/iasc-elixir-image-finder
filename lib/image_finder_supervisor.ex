@@ -7,7 +7,8 @@ defmodule ImageFinder.Supervisor do
 
   def init(_args) do
     children = [
-      {DynamicSupervisor, name: ImageFinder.DynSup, strategy: :one_for_one}
+      # {DynamicSupervisor, name: ImageFinder.Fetcher.Supervisor, strategy: :one_for_one},
+      {DynamicSupervisor, name: ImageFinder.FileParser.Supervisor, strategy: :one_for_one}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
